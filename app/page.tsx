@@ -1,6 +1,5 @@
 'use client';
 
-// types.ts
 interface Icon {
   title: string;
   code: string;
