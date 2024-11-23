@@ -1,5 +1,5 @@
-export interface Icon {
+export type Icon = {
   title: string;
   code: string;
   type: string;
-}
+};

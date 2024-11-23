@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Loading from './components/Loading/Loading';
-import { Icon } from './types/icon';
+import type { Icon } from './type/icon';
 import { downloadSvg } from './utils/download';
 
 export default function Home() {
