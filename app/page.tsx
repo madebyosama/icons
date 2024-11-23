@@ -1,8 +1,14 @@
 'use client';
 
+// types.ts
+interface Icon {
+  title: string;
+  code: string;
+  type: string;
+}
+
 import { useEffect, useState } from 'react';
 import Loading from './components/Loading/Loading';
-import type { Icon } from './type/icon';
 import { downloadSvg } from './utils/download';
 
 export default function Home() {
