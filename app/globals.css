@@ -62,7 +62,6 @@ a {
   margin: 6px;
   padding: 32px 32px 24px 32px;
   border-radius: 10px;
-  transition: all 0.3s;
 }
 
 .icon:hover {
@@ -70,7 +69,7 @@ a {
 }
 
 .icon:active {
-  transform: scale(0.9);
+  background-color: var(--color2);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -82,5 +81,8 @@ a {
   }
   .icon:hover {
     background-color: var(--color7) !important;
+  }
+  .icon:active {
+    background-color: var(--color8) !important;
   }
 }
