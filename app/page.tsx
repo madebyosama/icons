@@ -44,7 +44,7 @@ export default function Home() {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div style={{ fontWeight: 600 }}>Loading...</div>;
   }
 
   if (error) {
