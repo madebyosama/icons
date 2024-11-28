@@ -8,6 +8,7 @@ interface Icon {
 
 import { useEffect, useState } from 'react';
 import { downloadSvg } from './utils/download';
+import Loading from './components/Loading/Loading';
 
 export default function Home() {
   const [icons, setIcons] = useState<Icon[]>([]);
@@ -44,7 +45,7 @@ export default function Home() {
   };
 
   if (loading) {
-    return <div style={{ fontWeight: 600 }}>Loading...</div>;
+    return <Loading />;
   }
 
   if (error) {
