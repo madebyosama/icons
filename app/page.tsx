@@ -65,6 +65,11 @@ export default function Home() {
 
   return (
     <main className='container'>
+      <div className='title'>
+        <div className='sub'>Collection of useful Icons</div>
+        <div className='heading'>Icons by Osama</div>
+        <div className='description'>© madebyosama.com</div>
+      </div>
       <div className='search-container'>
         <input
           type='text'
