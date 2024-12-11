@@ -1,19 +1,21 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+import { downloadSvg } from './utils/download';
+import Loading from './components/Loading/Loading';
+
 interface Icon {
   title: string;
   code: string;
   type: string;
 }
 
-import { useEffect, useState } from 'react';
-import { downloadSvg } from './utils/download';
-import Loading from './components/Loading/Loading';
-
 export default function Home() {
   const [icons, setIcons] = useState<Icon[]>([]);
+  const [filteredIcons, setFilteredIcons] = useState<Icon[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   useEffect(() => {
     const fetchIcons = async () => {
@@ -26,6 +28,7 @@ export default function Home() {
         }
         const data: Icon[] = await response.json();
         setIcons(data);
+        setFilteredIcons(data);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An error occurred');
       } finally {
@@ -35,6 +38,14 @@ export default function Home() {
 
     fetchIcons();
   }, []);
+
+  useEffect(() => {
+    // Filter icons based on search term
+    const filtered = icons.filter((icon) =>
+      icon.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredIcons(filtered);
+  }, [searchTerm, icons]);
 
   const handleCopy = async (code: string) => {
     await navigator.clipboard.writeText(code);
@@ -54,8 +65,17 @@ export default function Home() {
 
   return (
     <main className='container'>
+      <div className='search-container'>
+        <input
+          type='text'
+          placeholder='Search Icons'
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className='search-input'
+        />
+      </div>
       <div className='icons'>
-        {icons.map((icon, index) => (
+        {filteredIcons.map((icon, index) => (
           <div
             key={`${icon.title}-${index}`}
             className='icon'
