@@ -55,10 +55,6 @@ export default function Home() {
     downloadSvg(code, title);
   };
 
-  if (loading) {
-    return <Loading />;
-  }
-
   if (error) {
     return <div className='error'>Error: {error}</div>;
   }
@@ -79,24 +75,28 @@ export default function Home() {
           className='search-input'
         />
       </div>
-      <div className='icons'>
-        {filteredIcons.map((icon, index) => (
-          <div
-            key={`${icon.title}-${index}`}
-            className='icon'
-            onClick={() => handleCopy(icon.code)}
-            onDoubleClick={(e) => {
-              e.preventDefault();
-              handleDownload(icon.code, icon.title);
-            }}
-          >
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className='icons'>
+          {filteredIcons.map((icon, index) => (
             <div
-              className='code'
-              dangerouslySetInnerHTML={{ __html: icon.code }}
-            />
-          </div>
-        ))}
-      </div>
+              key={`${icon.title}-${index}`}
+              className='icon'
+              onClick={() => handleCopy(icon.code)}
+              onDoubleClick={(e) => {
+                e.preventDefault();
+                handleDownload(icon.code, icon.title);
+              }}
+            >
+              <div
+                className='code'
+                dangerouslySetInnerHTML={{ __html: icon.code }}
+              />
+            </div>
+          ))}
+        </div>
+      )}
     </main>
   );
 }
