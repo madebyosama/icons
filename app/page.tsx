@@ -62,9 +62,13 @@ export default function Home() {
   return (
     <main className='container'>
       <div className='title'>
-        <div className='sub'>Collection of useful Icons</div>
-        <div className='heading'>Icons by Osama</div>
-        <div className='description'>© madebyosama.com</div>
+        <div className='sub' style={{ textAlign: 'center' }}>
+          Insanely useful icons
+        </div>
+        <div className='heading'>
+          {icons.length ? icons.length + ' ' : ''}Icons
+        </div>
+        {/* <div className='description'>Made with ❤️ madebyosama.com</div> */}
       </div>
       <div className='search-container'>
         <input
