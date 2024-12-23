@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import { downloadSvg } from './utils/download';
 import Loading from './components/Loading/Loading';
 
@@ -12,7 +12,6 @@ interface Icon {
 
 export default function Home() {
   const [icons, setIcons] = useState<Icon[]>([]);
-  const [filteredIcons, setFilteredIcons] = useState<Icon[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -28,7 +27,6 @@ export default function Home() {
         }
         const data: Icon[] = await response.json();
         setIcons(data);
-        setFilteredIcons(data);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An error occurred');
       } finally {
@@ -39,21 +37,19 @@ export default function Home() {
     fetchIcons();
   }, []);
 
-  useEffect(() => {
-    // Filter icons based on search term
-    const filtered = icons.filter((icon) =>
+  const filteredIcons = useMemo(() => {
+    return icons.filter((icon) =>
       icon.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    setFilteredIcons(filtered);
   }, [searchTerm, icons]);
 
-  const handleCopy = async (code: string) => {
+  const handleCopy = useCallback(async (code: string) => {
     await navigator.clipboard.writeText(code);
-  };
+  }, []);
 
-  const handleDownload = (code: string, title: string) => {
+  const handleDownload = useCallback((code: string, title: string) => {
     downloadSvg(code, title);
-  };
+  }, []);
 
   if (error) {
     return <div className='error'>Error: {error}</div>;
